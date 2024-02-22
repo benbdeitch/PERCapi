@@ -84,7 +84,8 @@ class EmergRoom(db.Model):
     name = db.Column(db.String(2), nullable=False)
     address = db.Column(db.Integer, db.ForeignKey('address.id'), nullable = False)
     website = db.Column(db.String(100), unique = True)
-    
+    #The Google Places ID, used for easier navigation when available. 
+    placeId = db.Column(db.String, unique = True)
 
 
 
