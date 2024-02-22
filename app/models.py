@@ -98,9 +98,14 @@ class EmergRoom(db.Model):
 
 #This is the only upload to the database that non-authorized accounts can perform;
 #It must be approved by an authorized account before it will be properly processed by the database. 
+        
 class Pending(db.Model):
     id = db.Column(db.Integer, primary_key= True)
-    contents= db.Column(db.String(150), nullable = False)
+    name = db.Column(db.String(150), nullable = False)
+    street_number = db.Column(db.Integer, nullable = False)
+    street_name = db.Column(db.String(150), nullable = False)
+    state = db.Column(db.String(20), nullable = False)
+    website = db.Column(db.String(150), nullable = False)
     uploader = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
