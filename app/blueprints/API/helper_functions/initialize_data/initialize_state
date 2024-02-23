@@ -1,0 +1,27 @@
+from app import db
+from app.models import EmergRoom, Address, State, Confirmation
+
+#This file exists to properly ensure that all valid states have a presence in the SQL table. 
+
+STATE_ARRAY = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL',
+               'GA','HI','ID','IL','IN','IA','KS','KY','LA',
+               'ME','MD','MA','MI','MN','MS','MO','MT','NE',
+               'NV','NH','NJ','NM','NY','NC','ND','OH','OK',
+               'OR','PA','RI','SC','SD','TN','TX','UT','VT',
+               'VA','WA','WV','WI','WY']
+
+#Returns False if the SQL query cannot find a state of that abbreviation. 
+def check_state_in_table(state):
+    return State.query.filter_by(name = state).first() == state
+
+def initialize_states():
+    for state in STATE_ARRAY:
+
+        if check_state_in_table(state):
+            continue
+        
+        new_state = State(name = state)
+        new_state.commit()
+    
+    
+    
