@@ -105,7 +105,7 @@ class Pending(db.Model):
     zipcode = db.Column(db.Integer(), nullable = False)
     phone_number= db.Column(db.String(12), nullable = True)
     state = db.Column(db.String(20), nullable = False)
-    website = db.Column(db.String(150), nullable = False)
+    website = db.Column(db.String(150), nullable = True)
     uploader = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
