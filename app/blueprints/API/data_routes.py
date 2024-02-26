@@ -1,4 +1,7 @@
-from flask_jwt_extended import jwt_required
+from flask import jsonify, request
+from flask_jwt_extended import get_jwt_identity, jwt_required
+
+from app.models import User, Pending
 from . import bp as api
 
 #This File adds routes that handle adding and retrieving information from the database. 
@@ -8,19 +11,40 @@ from . import bp as api
 
 @api.post('/add-entry')
 @jwt_required()
-def add_pending_entry(request):
+def add_pending_entry():
     """ Accepts requests of the form: 
     {[
         {
             "name": String,
             "street_number": Integer,
             "street_name": String,
+            "city": string,
+            "zipcode":
             "state": String,
+            "phone_number": String
             "website": String
         }
     ]
 } """
-    pass
+    data = request.json
+    print(type(data))
+    username = get_jwt_identity()
+    user = User.query.filter_by(username = username).first()
+    try:
+        entry = Pending(name = data.get("name"), 
+                        street_number = int(data.get("street_number")), 
+                        street_name = data.get("street_name"),
+                        state = data.get("state"),
+                        city = data.get("city"),
+                        zipcode = int(data.get("zipcode")),
+                        phone_number = data.get("phone_number"),
+                        website = data.get("website"),
+                        uploader = user.id)
+        entry.commit()
+        return jsonify({"Success": f'New Entry for {data["name"]} has been added to our pending table.'}),200
+    #TODO: replace this error return with something more informative. 
+    except:
+         return jsonify({"Error": "Improperly formatted request."}), 400
 
 
 @api.post('/get-by-state')
