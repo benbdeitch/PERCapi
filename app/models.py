@@ -76,7 +76,8 @@ class Confirmation(db.Model):
 class EmergRoom(db.Model):
     id = db.Column(db.Integer, primary_key= True)
     name = db.Column(db.String(2), nullable=False)
-    address = db.Column(db.Integer, db.ForeignKey('address.id'), nullable = False)
+    address = db.Column(db.Integer, db.ForeignKey('address.id'), nullable = False),
+    phone = db.Column(db.String(12), nullable = True)
     website = db.Column(db.String(100), unique = True)
     #The Google Places ID, used for easier navigation when available. 
     placeId = db.Column(db.String, unique = True)
@@ -99,6 +100,7 @@ class Pending(db.Model):
     name = db.Column(db.String(150), nullable = False)
     street_number = db.Column(db.Integer, nullable = False)
     street_name = db.Column(db.String(150), nullable = False)
+    phone_number= db.Column(db.String(12), nullable = True)
     state = db.Column(db.String(20), nullable = False)
     website = db.Column(db.String(150), nullable = False)
     uploader = db.Column(db.Integer, db.ForeignKey('user.id'))
