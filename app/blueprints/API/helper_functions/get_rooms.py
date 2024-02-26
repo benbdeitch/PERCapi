@@ -1,5 +1,5 @@
 from app import db
-from app.models import EmergRoom, Address, Confirmation
+from app.models import EmergRoom, Address
 from sqlalchemy import or_
 import json 
 #These helper functions are used to ease the process of fetching the emergency rooms from the database. 
@@ -70,5 +70,5 @@ def get_rooms_by_state(state):
                              Address.number, 
                              Address.state).join(Address, Address.id == EmergRoom.id).filter(
                                  Address.state in state_list
-                             )
+                             ).all()
     return rooms
