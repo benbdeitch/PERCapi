@@ -44,8 +44,10 @@ class Address(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     number = db.Column(db.Integer, nullable=False)
     name = db.Column(db.Integer, nullable=False)
+    zipcode = db.Column(db.Integer, nullable = False)
     state  = db.Column(db.String(2), nullable = False)
-
+    city = db.Column(db.String(25), nullable = False)
+    
     def commit(self):
         if self.state in ALLOWED_STATES:
             db.session.add(self)
@@ -100,6 +102,7 @@ class Pending(db.Model):
     name = db.Column(db.String(150), nullable = False)
     street_number = db.Column(db.Integer, nullable = False)
     street_name = db.Column(db.String(150), nullable = False)
+    zipcode = db.Column(db.Integer(), nullable = False)
     phone_number= db.Column(db.String(12), nullable = True)
     state = db.Column(db.String(20), nullable = False)
     website = db.Column(db.String(150), nullable = False)
