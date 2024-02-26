@@ -36,28 +36,22 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password_hash, password)
 
 
-class State(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(20), unique = True, nullable = False)
 
-    def commit(self):
-        db.session.add(self)
-        db.session.commit()
 
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
+ALLOWED_STATES = {'NJ'}
 
 class Address(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     number = db.Column(db.Integer, nullable=False)
     name = db.Column(db.Integer, nullable=False)
-    state  = db.Column(db.Integer, db.ForeignKey('state.id'), nullable = False)
+    state  = db.Column(db.String(2), nullable = False)
 
     def commit(self):
-        db.session.add(self)
-        db.session.commit()
+        if self.state in ALLOWED_STATES:
+            db.session.add(self)
+            db.session.commit()
+        else:
+            print("Error: State Code Not Permitted")
 
     def delete(self):
         db.session.delete(self)
