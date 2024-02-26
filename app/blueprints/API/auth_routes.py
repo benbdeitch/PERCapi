@@ -6,7 +6,9 @@ from flask import make_response, request, jsonify
 from flask_jwt_extended import create_access_token, get_jwt, get_jwt_identity, jwt_required, set_access_cookies, unset_jwt_cookies
 import re
 
-#accepts a request with {"username": <desired username>, "password": <desired password>, "email": <desired email address>}. If username or email are shared with a pre-existing user, no account will be created.
+#accepts a request with {"username": <desired username>, "password": <desired password>, 
+#"email": <desired email address>}. If username or email are shared with a pre-existing user, 
+#no account will be created.
 #Returns an access token, as though the user just signed in.
 @api.post('/register')
 def register():
