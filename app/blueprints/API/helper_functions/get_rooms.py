@@ -1,5 +1,6 @@
 from app import db
 from app.models import EmergRoom, Address, Confirmation
+from sqlalchemy import or_
 import json 
 #These helper functions are used to ease the process of fetching the emergency rooms from the database. 
 
@@ -59,4 +60,15 @@ def get_state_neighbors(state):
     return neighboring_states
 
 def get_rooms_by_state(state):
-    pass
+
+    state_list = set(get_state_neighbors.get(state.upper()))
+    rooms = db.session.query(EmergRoom.name, 
+                             EmergRoom.placeId, 
+                             EmergRoom.website, 
+                             EmergRoom.placeId, 
+                             Address.name, 
+                             Address.number, 
+                             Address.state).join(Address, Address.id == EmergRoom.id).filter(
+                                 Address.state in state_list
+                             )
+    return rooms
