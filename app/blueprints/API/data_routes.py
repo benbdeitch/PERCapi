@@ -47,6 +47,12 @@ def add_pending_entry():
          return jsonify({"Error": "Improperly formatted request."}), 400
 
 
+@api.post('/approve_entry')
+@jwt_required()
+def approve_pending_entry():
+    pass
+
+
 @api.post('/get-by-state')
 @jwt_required()
 def get_data_by_state(request):
