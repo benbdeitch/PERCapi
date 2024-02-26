@@ -35,7 +35,7 @@ def register():
        response['email validity error'] = f'{content["email"]} is an invalid email.'
        valid = False;
     if valid:
-        u = User(username = content["username"], email = content["email"])
+        u = User(username = content["username"], admin = False, email = content["email"])
         print(u)
         
         u.hash_password(content["password"])
