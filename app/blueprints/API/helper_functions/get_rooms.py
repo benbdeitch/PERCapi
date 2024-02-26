@@ -55,12 +55,8 @@ neighboring_states = {'AK': ['WA', 'AK'],
                       'WV': ['KY', 'MD', 'OH', 'PA', 'VA', 'WV'], 
                       'WY': ['CO', 'ID', 'MT', 'NE', 'SD', 'UT', 'WY']}
 
-
-
-
-
 def get_state_neighbors(state):
     return neighboring_states
 
 def get_rooms_by_state(state):
-    
+    pass
