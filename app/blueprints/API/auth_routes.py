@@ -59,6 +59,7 @@ def sign_in():
       response = {}
       response["username"] = username
       response["email"] = user.email
+      response["admin"] = user.admin
       response["token"] =  create_access_token(identity=username)
     
       return jsonify(response), 200
